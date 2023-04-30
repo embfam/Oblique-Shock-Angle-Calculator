@@ -1,0 +1,25 @@
+import math as m
+
+def pm_angle(M,v,gamma):
+    '''
+    Function takes in values for mach number and gamma.
+    It then calculates the prandtl-meyer function.
+    The function returns v in degrees.
+    '''
+    if M != None and v == None:
+        tan1 = m.sqrt((gamma-1)/(gamma+1) * (M**2-1))
+        tan2 = m.sqrt(M**2-1)
+        c = m.sqrt((gamma+1)/(gamma-1))
+        v = c * m.atan(tan1) - m.atan(tan2)
+        v /= (np.pi/180)
+        return v
+    elif M == None and v != None:
+        for i in np.arange(1,30,0.001):
+            tan1 = m.sqrt((gamma-1)/(gamma+1) * (i**2-1))
+            tan2 = m.sqrt(i**2-1)
+            c = m.sqrt((gamma+1)/(gamma-1))
+            ve = c * m.atan(tan1) - m.atan(tan2)
+            ve /= (np.pi/180)
+            if ve >= v:
+                break
+        return i
