@@ -1,0 +1,18 @@
+import numpy as np
+
+def shock_angle(theta,M,gamma):
+    '''
+    Function takes in values for deflection angle, mach number, and gamma.
+    It sets one half of the equation as x.
+    It then iterates over beta from 1 to 90 degrees by incriments of 0.001 degrees
+    until it finds a value for beta which equals the other side of the equation.
+    The function then returns beta in degrees.
+    '''
+    theta *= (np.pi/180)
+    eq1 = np.tan(theta)
+    for beta in np.arange(1, 90, 0.001) * (np.pi/180):
+        eq2 = 2*(1/np.tan(beta)) * ((M**2*np.sin(beta)**2-1) / (M**2*(gamma+np.cos(2*beta))+2))
+        if eq2 >= eq1:
+            break
+    beta /= (np.pi/180)
+    return beta
